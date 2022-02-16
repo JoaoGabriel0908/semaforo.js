@@ -6,14 +6,7 @@ const verde = document.getElementById('verde')
 const amarelo = document.getElementById('amarelo')
 const vermelho = document.getElementById('vermelho')
 const automatico = document.getElementById('automatico')
-let idAutomatico = null;
-
-// Alterando o semaforo para desligado
-const desligarSemaforo = () =>{
-    if(verdeAmareloVermelho()) {
-        semaforo.src = './imgs/desligado.png'
-    }
-}
+let idPiscar = null;
 
 // Alterando a imagem "Verde"
 const corVerde = () => {
@@ -30,44 +23,66 @@ const corVermelha = () =>{
     semaforo.src = './imgs/vermelho.png'
 }
 
-const semaforoDesligado = () =>{
+const estaVerde = () => {
+    return semaforo.src.includes('verde')
+}
+
+const estaAmarela = () => {
+    return semaforo.src.includes('amarelo')
+}
+
+const estaVermelha = () => {
+    return semaforo.src.includes('vermelho')
+}
+
+const lampadaDesligada = () => {
     return semaforo.src.includes('desligado')
 }
 
 const verdeAmareloVermelho = () =>{
-    if (semaforoDesligado()){
+    if(lampadaDesligada()){
         corVerde()
-    } else if(corVerde()){
+    } else if(estaVerde()){
         corAmarela()
-    } else if(corAmarela()){
+    } else if(estaAmarela()){
         corVermelha()
-    } else if(corVermelha()){
+    } else if(estaVermelha()){
         corVerde()
     }
 }
 
 // O Semaforo está automático
 const automatizar = () => {
-    if(idAutomatico == null){
-        idAutomatico == setTimeout(verdeAmareloVermelho, 200)
+    if (idPiscar == null) {
+        setInterval(verdeAmareloVermelho, 1000)
         automatico.textContent = 'Parar'
-    } else{
-        clearInterval(idAutomatico)
-        automatico.textContent = 'Automatico'
-        idAutomatico = null
+    } else {
+        clearInterval(idPiscar)
+        automatico.textContent = 'Automático'
+        idPiscar == null
     }
 }
-
 // Adicionando o evento de mudar imagem com o 'click'
 // Cor Verde
-verde.addEventListener('click', corVerde);
-
+verde.addEventListener('click', () => {
+    clearInterval(idPiscar)
+    corVerde()
+})
 // Cor Amarela
-amarelo.addEventListener('click', corAmarela);
+amarelo.addEventListener('click', () => {
+    clearInterval(idPiscar)
+    corAmarela()
+})
 
 // Cor Vermelha
-vermelho.addEventListener('click', corVermelha);
+vermelho.addEventListener('click', () => {
+    clearInterval(idPiscar)
+    corVermelha()
+})
 
 // Automatizar
-automatico.addEventListener('click', automatizar);
+automatico.addEventListener('click', () => {
+    clearInterval(idPiscar)
+    automatizar()
+})
 

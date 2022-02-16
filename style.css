@@ -1,0 +1,26 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: auto;
+}
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+    flex-direction: column;
+}
